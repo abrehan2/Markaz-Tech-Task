@@ -27,7 +27,7 @@ const Page = () => {
   return isLoading ? (
     <Loader />
   ) : (
-    <main className="w-full">
+    <main className="w-full max-w-full">
       <Masonry columns={{ 640: 1, 768: 2, 1024: 3, 1280: 5 }} gap={16}>
         {data?.posts.map((post: postCardProps) => (
           <PostCard
