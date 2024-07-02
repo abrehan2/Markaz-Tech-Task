@@ -1,9 +1,10 @@
 // IMPORTS -
+import { Navbar } from "@/components/navbar";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { Navbar } from "@/components/navbar";
 import { cn } from "@/lib/utils";
 import Providers from "./providers";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 // PARTIALS -
@@ -26,12 +27,13 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "p-3 h-auto w-full space-y-4 bg-slate-200",
+          "p-10 h-auto w-full space-y-4 bg-slate-200",
           font.className
         )}
       >
         <Navbar />
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );

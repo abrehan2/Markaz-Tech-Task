@@ -7,6 +7,7 @@ export const useGetAllPosts = () => {
   const { data, error, isError, isLoading } = useQuery({
     queryKey: [POSTS_QUERY.getPosts.key],
     queryFn: getAllPosts,
+    staleTime: POSTS_QUERY.getPosts.staleTime,
   });
 
   return {
