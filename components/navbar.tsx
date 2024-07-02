@@ -13,7 +13,7 @@ export const Navbar = () => {
 
   return (
     <div className="w-full overflow-hidden py-10 flex items-center justify-center lg:mb-[10px]">
-      <nav className=" bg-white flex items-center gap-x-3 md:justify-between lg:justify-between w-[600px] p-4 rounded-xl shadow-sm bg-secondary">
+      <nav className=" bg-white flex items-center gap-x-3 justify-between w-[600px] p-4 rounded-xl shadow-sm bg-secondary">
         <div className="mt-0">
           <AnimatedGradientText className="rounded-[100px] lg:px-6 lg:py-3 lg:text-lg ">
             🚀
