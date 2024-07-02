@@ -16,7 +16,7 @@ export const Navbar = () => {
       <nav className=" bg-white flex items-center gap-x-3 md:justify-between lg:justify-between w-[600px] p-4 rounded-xl shadow-sm bg-secondary">
         <div className="mt-0">
           <AnimatedGradientText className="rounded-[100px] lg:px-6 lg:py-3 lg:text-lg ">
-            Built with Rehan 🚀
+            🚀
           </AnimatedGradientText>
         </div>
         <div className="flex gap-x-2">
