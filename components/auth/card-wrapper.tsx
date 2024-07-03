@@ -8,12 +8,13 @@ export const CardWrapper: React.FC<cardWrapperProps> = ({
   headerLabel,
 }) => {
   return (
-    <Card className="w-[400px] shadow-sm">
-      <CardHeader>
-        <Header label={headerLabel} />
-      </CardHeader>
-
-      <CardContent>{children}</CardContent>
-    </Card>
+    <div className="h-[60vh] flex justify-center items-center overflow-hidden">
+      <Card className="w-[500px] shadow-sm ">
+        <CardHeader>
+          <Header label={headerLabel} />
+        </CardHeader>
+        <CardContent>{children}</CardContent>
+      </Card>
+    </div>
   );
 };

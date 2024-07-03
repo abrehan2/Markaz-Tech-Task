@@ -1,8 +1,13 @@
 // IMPORTS -
 import { LoginForm } from "@/components/auth/login-form";
+import { LoginFormProvider } from "@/contexts/login-context";
 
 const Page = () => {
-  return <LoginForm />;
+  return (
+    <LoginFormProvider>
+      <LoginForm />
+    </LoginFormProvider>
+  );
 };
 
 export default Page;
