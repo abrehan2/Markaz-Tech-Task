@@ -3,8 +3,8 @@
 // IMPORTS -
 import { usePathname } from "next/navigation";
 import { authRoutes, publicRoutes } from "@/routes";
-import ShimmerButton from "./magicui/shimmer-button";
-import AnimatedGradientText from "./magicui/animated-gradient-text";
+import ShimmerButton from "../magicui/shimmer-button";
+import AnimatedGradientText from "../magicui/animated-gradient-text";
 import { useRouter } from "next/navigation";
 
 export const Navbar = () => {

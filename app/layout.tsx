@@ -1,5 +1,5 @@
 // IMPORTS -
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/header/navbar";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
