@@ -2,18 +2,24 @@
 
 // IMPORTS -
 import { usePathname } from "next/navigation";
-import { authRoutes, publicRoutes } from "@/routes";
+import { DEFAULT_REDIRECT_ROUTE, authRoutes, publicRoutes } from "@/routes";
 import ShimmerButton from "../magicui/shimmer-button";
 import AnimatedGradientText from "../magicui/animated-gradient-text";
 import { useRouter } from "next/navigation";
+import { FaUserAlt } from "react-icons/fa";
+import { useLoginStore } from "@/stores/auth";
 
 export const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const user = useLoginStore((state) => state.user);
 
   return (
     <div className="w-full overflow-hidden py-10 flex items-center justify-center lg:mb-[10px]">
-      <nav className=" bg-white flex items-center gap-x-3 justify-between w-[600px] p-4 rounded-xl shadow-sm bg-secondary">
+      <nav
+        className="bg-white flex items-center gap-x-3 justify-between w-[600px] p-4 rounded-xl shadow-sm bg-secondary
+     "
+      >
         <div className="mt-0">
           <AnimatedGradientText className="rounded-[100px] lg:px-6 lg:py-3 lg:text-lg ">
             🚀
@@ -28,13 +34,27 @@ export const Navbar = () => {
             Home
           </ShimmerButton>
 
-          <ShimmerButton
-            className="rounded-xl mb-0"
-            background={pathname === authRoutes[0] ? "#f97316" : "#000000"}
-            onClick={() => router.push(authRoutes[0])}
-          >
-            Login
-          </ShimmerButton>
+          {!user && (
+            <ShimmerButton
+              className="rounded-xl mb-0"
+              background={pathname === authRoutes[0] ? "#f97316" : "#000000"}
+              onClick={() => router.push(authRoutes[0])}
+            >
+              Login
+            </ShimmerButton>
+          )}
+
+          {user && (
+            <ShimmerButton
+              className="rounded-xl mb-0"
+              background={
+                pathname === DEFAULT_REDIRECT_ROUTE ? "#f97316" : "#000000"
+              }
+              onClick={() => router.push(DEFAULT_REDIRECT_ROUTE)}
+            >
+              <FaUserAlt />
+            </ShimmerButton>
+          )}
         </div>
       </nav>
     </div>

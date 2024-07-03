@@ -1,5 +1,5 @@
 // IMPORTS -
-import { Post, postCardProps } from "@/types/posts";
+import { Post } from "@/types/posts";
 import { create } from "zustand";
 
 export const usePostStore = create<Post>((set) => {

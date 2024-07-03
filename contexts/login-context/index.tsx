@@ -8,7 +8,7 @@ import {
   loginSchema,
   LoginSchemaType,
   LoginSchemaKeys,
-} from "@/schemas/loginSchema";
+} from "@/schemas/login-schema";
 
 export const LoginFormProvider = ({
   children,

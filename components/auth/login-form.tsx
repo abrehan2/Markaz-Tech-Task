@@ -2,7 +2,7 @@
 
 // IMPORTS -
 import { SubmitHandler } from "react-hook-form";
-import { LoginSchemaKeys, LoginSchemaType } from "@/schemas/loginSchema";
+import { LoginSchemaKeys, LoginSchemaType } from "@/schemas/login-schema";
 import { CardWrapper } from "./card-wrapper";
 import { useLoginFormContext } from "@/contexts/login-context";
 import {
@@ -15,23 +15,31 @@ import {
 import { Input } from "@/components/ui/input";
 import { LOGIN_QUERY } from "@/constants/login";
 import ShimmerButton from "../magicui/shimmer-button";
+import { useIsUser } from "@/hooks/usIsUser";
+import { Loader } from "@/components/others/loader";
 
 export const LoginForm = () => {
   const { formHook } = useLoginFormContext();
+  const { mutate, isUserPending } = useIsUser();
 
   const handleSubmit: SubmitHandler<LoginSchemaType> = ({
     username,
     password,
   }) => {
-    console.log("clicked");
     formHook.setValue(LoginSchemaKeys.USERNAME, username);
     formHook.setValue(LoginSchemaKeys.PASSWORD, password);
 
+    mutate({
+      username,
+      password,
+    });
     formHook.reset();
   };
 
-  return (
-    <CardWrapper headerLabel="Welcome back!">
+  return isUserPending ? (
+    <Loader />
+  ) : (
+    <CardWrapper headerLabel="Welcome back!" headingLabel="Login 🔑">
       <Form {...formHook}>
         <form
           className="space-y-6"
