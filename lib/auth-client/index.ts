@@ -1,7 +1,7 @@
 // IMPORTS -
 import cookies from "js-cookie";
 
-export const getDefaultHeaders = (): HeadersInit => {
+export const getDefaultHeaders = () => {
   const headers: HeadersInit = {};
   headers.Authorization = `Bearer ${cookies.get("token")}`;
   headers["Content-Type"] = "application/json";

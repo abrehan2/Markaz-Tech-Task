@@ -9,20 +9,18 @@ import {
   ProfileSchemaType,
   ProfileSchemaKeys,
 } from "@/schemas/profile-schema";
-import { useIsUser } from "@/hooks/usIsUser";
 
 export const ProfileFormProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const { user } = useIsUser();
   const formHook = useForm<ProfileSchemaType>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      [ProfileSchemaKeys.USERNAME]: user?.data.username ?? "",
-      [ProfileSchemaKeys.FIRST_NAME]: user?.data.firstName ?? "",
-      [ProfileSchemaKeys.LAST_NAME]: user?.data.lastName ?? "",
+      [ProfileSchemaKeys.USERNAME]: "",
+      [ProfileSchemaKeys.FIRST_NAME]: "",
+      [ProfileSchemaKeys.LAST_NAME]: "",
     },
     mode: "onChange",
   });

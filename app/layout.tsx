@@ -31,8 +31,10 @@ export default function RootLayout({
           font.className
         )}
       >
-        <Navbar />
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
         <Toaster />
       </body>
     </html>

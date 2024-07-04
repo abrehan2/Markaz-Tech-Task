@@ -6,6 +6,14 @@ export const LOGIN_QUERY = {
 
   getUser: {
     key: "getUser",
-    staleTime: 1000 * 60 * 1,
+  },
+
+  currentUser: {
+    key: "currentUser",
+    staleTime: 1000 * 60 * 60 * 24,
+  },
+
+  updateUser: {
+    key: "updateUser",
   },
 };

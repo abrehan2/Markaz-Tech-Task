@@ -7,12 +7,13 @@ import ShimmerButton from "../magicui/shimmer-button";
 import AnimatedGradientText from "../magicui/animated-gradient-text";
 import { useRouter } from "next/navigation";
 import { FaUserAlt } from "react-icons/fa";
-import { useLoginStore } from "@/stores/auth";
+import { useIsUser } from "@/hooks/usIsUser";
 
 export const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const user = useLoginStore((state) => state.user);
+  const { user } = useIsUser();
+  let findUser = !!user;
 
   return (
     <div className="w-full overflow-hidden py-10 flex items-center justify-center lg:mb-[10px]">
@@ -34,7 +35,7 @@ export const Navbar = () => {
             Home
           </ShimmerButton>
 
-          {!user && (
+          {!findUser && (
             <ShimmerButton
               className="rounded-xl mb-0"
               background={pathname === authRoutes[0] ? "#f97316" : "#000000"}
@@ -44,7 +45,7 @@ export const Navbar = () => {
             </ShimmerButton>
           )}
 
-          {user && (
+          {findUser && (
             <ShimmerButton
               className="rounded-xl mb-0"
               background={

@@ -18,37 +18,48 @@ import { useIsUser } from "@/hooks/usIsUser";
 import { Loader } from "@/components/others/loader";
 import { useRouter } from "next/navigation";
 import { publicRoutes } from "@/routes";
+import { useUpdateUser } from "@/hooks/useUpdateUser";
+import { useCallback, useState } from "react";
 
 export const ProfileForm = () => {
   const { logout } = useIsUser();
   const { formHook } = useProfileFormContext();
+  const { isUpdatePending, mutate } = useUpdateUser();
+  const { user } = useIsUser();
+  // const [currentValues, setCurrentValues] = useState<ProfileSchemaType>({
+  //   username: user?.data.username ?? "",
+  //   firstName: user?.data?.firstName ?? "",
+  //   lastName: user?.data?.lastName ?? "",
+  // });
+
   const router = useRouter();
+  console.log("PROFILE FORM USER:\n");
+  console.log(formHook);
+  console.log(user);
 
-  let isUserPending = false;
-
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     logout();
     router.push(publicRoutes[0]);
-  };
+  }, []);
 
   const handleSubmit: SubmitHandler<ProfileSchemaType> = ({
-    username,
     firstName,
     lastName,
+    username,
   }) => {
-    console.log("clicked");
-    formHook.setValue(ProfileSchemaKeys.USERNAME, username);
-    formHook.setValue(ProfileSchemaKeys.FIRST_NAME, firstName);
-    formHook.setValue(ProfileSchemaKeys.LAST_NAME, lastName);
-
+    console.log(firstName, lastName, username);
     // mutate({
-    //   username,
-    //   password,
+    //   id: String(user?.data.id),
+    //   values: {
+    //     firstName,
+    //     lastName,
+    //     username,
+    //   },
     // });
-    formHook.reset();
+    // formHook.reset();
   };
 
-  return isUserPending ? (
+  return isUpdatePending ? (
     <Loader />
   ) : (
     <CardWrapper
@@ -75,8 +86,8 @@ export const ProfileForm = () => {
                       name={ProfileSchemaKeys.USERNAME}
                       disabled={!formHook.formState.isValid}
                       type="text"
-                      value={formHook.watch(ProfileSchemaKeys.USERNAME)}
-                      required
+                      value={user?.data.username}
+                      onChange={() => {}}
                     />
                   </FormControl>
                 </FormItem>
@@ -97,8 +108,8 @@ export const ProfileForm = () => {
                       name={ProfileSchemaKeys.FIRST_NAME}
                       disabled={!formHook.formState.isValid}
                       type="text"
-                      value={formHook.watch(ProfileSchemaKeys.FIRST_NAME)}
-                      required
+                      value={user?.data.firstName}
+                      onChange={() => {}}
                     />
                   </FormControl>
                 </FormItem>
@@ -119,8 +130,8 @@ export const ProfileForm = () => {
                       name={ProfileSchemaKeys.LAST_NAME}
                       disabled={!formHook.formState.isValid}
                       type="text"
-                      value={formHook.watch(ProfileSchemaKeys.LAST_NAME)}
-                      required
+                      value={user?.data.lastName}
+                      onChange={() => {}}
                     />
                   </FormControl>
                 </FormItem>
@@ -134,7 +145,7 @@ export const ProfileForm = () => {
             <ShimmerButton
               className="w-full"
               shimmerSize="0.5em"
-              type="submit"
+              type="button"
               onClick={handleLogout}
             >
               Logout

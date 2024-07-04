@@ -4,7 +4,8 @@
 import { config } from "@/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { Loader } from "@/components/others/loader";
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -24,10 +25,12 @@ const Providers: React.FC<ProvidersProps> = ({ children }) => {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      {!config.IS_PRODUCTION && <ReactQueryDevtools initialIsOpen={false} />}
-    </QueryClientProvider>
+    <Suspense fallback={<Loader />}>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        {!config.IS_PRODUCTION && <ReactQueryDevtools initialIsOpen={false} />}
+      </QueryClientProvider>
+    </Suspense>
   );
 };
 
