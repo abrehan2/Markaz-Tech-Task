@@ -4,12 +4,12 @@
 import { useToast } from "@/components/ui/use-toast";
 import { LOGIN_QUERY } from "@/constants/login";
 import { DEFAULT_REDIRECT_ROUTE } from "@/routes";
-import { getCurrentUser, userLogin } from "@/services/user";
+import { userLogin } from "@/services/user";
 import { useLoginStore } from "@/stores/auth";
 import { setAuthCookie } from "@/utils/auth";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 
 export const useIsUser = () => {
   const setUser = useLoginStore((state) => state.setUser);
@@ -21,19 +21,11 @@ export const useIsUser = () => {
 
   const user = useLoginStore((state) => state.user);
   const isUserPending = useLoginStore((state) => state.isPending);
-  const token = useLoginStore((state) => state.token);
   const logout = useLoginStore((state) => state.logout);
-  const refreshToken = useLoginStore((state) => state.refreshToken);
   const { toast } = useToast();
   const router = useRouter();
 
-  const {
-    mutate,
-    error,
-    isSuccess,
-    isPending,
-    data: loggedInUser,
-  } = useMutation({
+  const { mutate, error } = useMutation({
     mutationKey: [LOGIN_QUERY.getUser.key],
     mutationFn: userLogin,
     onSuccess: (data) => {
@@ -49,17 +41,6 @@ export const useIsUser = () => {
     },
   });
 
-  const { data: currentUser, isSuccess: currentUserSuccess } = useQuery({
-    queryKey: [LOGIN_QUERY.currentUser.key],
-    queryFn: getCurrentUser,
-  });
-
-  console.log("CURRENT USER:\n");
-  console.log(currentUser, currentUserSuccess);
-
-  console.log("LOGGED IN USER:\n");
-  console.log(loggedInUser?.data);
-
   useEffect(() => {
     if (error) {
       toast({
@@ -67,27 +48,7 @@ export const useIsUser = () => {
         description: error.message,
       });
     }
-
-    if (currentUser) {
-      setUser({
-        data: currentUser.data,
-      });
-      setIsSuccess(currentUserSuccess);
-    }
-
-    // setIsUserPending(isPending);
-    // setIsSuccess(isSuccess);
-  }, [
-    error,
-    // isSuccess,
-    toast,
-    setIsSuccess,
-    // isPending,
-    // setIsUserPending,
-    currentUser,
-    currentUserSuccess,
-    setUser,
-  ]);
+  }, [error, toast]);
 
   return {
     mutate,

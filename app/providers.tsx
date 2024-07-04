@@ -4,8 +4,9 @@
 import { config } from "@/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Loader } from "@/components/others/loader";
+import { rehydrateUserState } from "@/stores/auth";
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -23,6 +24,10 @@ const Providers: React.FC<ProvidersProps> = ({ children }) => {
         },
       })
   );
+
+  useEffect(() => {
+    rehydrateUserState();
+  }, []);
 
   return (
     <Suspense fallback={<Loader />}>
