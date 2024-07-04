@@ -23,7 +23,7 @@ export const ProfileForm = () => {
   const { logout } = useIsUser();
   const { formHook } = useProfileFormContext();
   const router = useRouter();
-  console.log(formHook.formState);
+
   let isUserPending = false;
 
   const handleLogout = () => {
