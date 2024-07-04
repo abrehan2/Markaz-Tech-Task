@@ -23,7 +23,7 @@ export const useUpdateUser = () => {
   const user = useLoginStore((state) => state.user);
   const { toast } = useToast();
 
-  const { mutate, error, isSuccess, isPending, data } = useMutation({
+  const { mutate, error, isSuccess } = useMutation({
     mutationKey: [LOGIN_QUERY.updateUser.key],
     mutationFn: updateUser,
     onSuccess: (data) => {
@@ -47,7 +47,14 @@ export const useUpdateUser = () => {
         description: error.message,
       });
     }
-  }, [error, toast]);
+
+    if (isSuccess) {
+      toast({
+        title: "Success",
+        description: "User updated successfully",
+      });
+    }
+  }, [error, toast, isSuccess]);
 
   return {
     isUpdateSuccess,
